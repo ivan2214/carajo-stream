@@ -43,8 +43,6 @@ export function getDurationInSeconds(duration: string | undefined): number {
 export function classifyVideoByDuration(
 	durationInSeconds: number,
 ): VideoItem["videoType"] {
-	console.log(durationInSeconds);
-	
 	if (durationInSeconds === 0) return "upcoming"; // Próximas emisiones
 	if (durationInSeconds > 3600) return "streams"; // Directos (más de 1 hora)
 	if (durationInSeconds >= 180) return "video"; // Videos (más de 3 minutos)
