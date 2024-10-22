@@ -1,0 +1,64 @@
+---
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Youtube } from "lucide-react";
+---
+
+<header
+  class="sticky top-0 z-50 w-full border-b bg-background backdrop-blur supports-[backdrop-filter]:bg-background"
+>
+  <div class="container flex h-14 items-center px-4">
+    <div class="mr-4 hidden md:flex">
+      <a class="mr-6 flex items-center space-x-2" href="/">
+        <Youtube className="h-6 w-6 text-purple-600" />
+        <span class="hidden font-bold sm:inline-block"> CarajoStream </span>
+      </a>
+      <nav class="flex items-center space-x-6 font-medium text-sm">
+        <a
+          class="text-foreground/60 transition-colors hover:text-foreground/80"
+          href="#videos"
+        >
+          Videos
+        </a>
+        <a
+          class="text-foreground/60 transition-colors hover:text-foreground/80"
+          href="#live"
+        >
+          En Vivo
+        </a>
+        <a
+          class="text-foreground/60 transition-colors hover:text-foreground/80"
+          href="#shorts"
+        >
+          Shorts
+        </a>
+        <a
+          class="text-foreground/60 transition-colors hover:text-foreground/80"
+          href="#upcoming"
+        >
+          Próximos
+        </a>
+        <a
+          class="text-foreground/60 transition-colors hover:text-foreground/80"
+          href="#hosts"
+        >
+          Conductores
+        </a>
+      </nav>
+    </div>
+    <div
+      class="flex flex-1 items-center justify-between space-x-2 md:justify-end"
+    >
+      <div class="w-full flex-1 md:w-auto md:flex-none">
+        <Input
+          className="max-w-[300px]"
+          placeholder="Buscar contenido..."
+          type="search"
+        />
+      </div>
+      <Button className="bg-purple-600 hover:bg-purple-700" size="sm">
+        Suscribirse
+      </Button>
+    </div>
+  </div>
+</header>

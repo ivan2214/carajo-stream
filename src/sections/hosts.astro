@@ -1,0 +1,42 @@
+<section id="hosts" class="w-full py-12 md:py-24 lg:py-32">
+  <div class="container px-4 md:px-6">
+    <h2
+      class="mb-8 font-bold text-3xl tracking-tighter sm:text-4xl md:text-5xl"
+    >
+      Nuestros Conductores
+    </h2>
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+      {
+        [
+          {
+            name: "Ana Libertaria",
+            role: "Analista Política",
+            image: "https://randomuser.me/api/portraits/women/1.jpg",
+          },
+          {
+            name: "Carlos Economista",
+            role: "Experto en Economía",
+            image: "https://randomuser.me/api/portraits/women/3.jpg",
+          },
+          {
+            name: "Laura Debates",
+            role: "Moderadora",
+            image: "https://randomuser.me/api/portraits/women/2.jpg",
+          },
+        ].map((host) => (
+          <div class="flex flex-col items-center text-center">
+            <img
+              src={host.image}
+              alt={host.name}
+              width={200}
+              height={200}
+              class="mb-4 rounded-full"
+            />
+            <h3 class="font-bold text-xl">{host.name}</h3>
+            <p class="text-gray-600">{host.role}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
