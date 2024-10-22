@@ -26,9 +26,11 @@ const { live } = Astro.props as CategorizedVideos;
           <div class="bg-white p-6">
             <h3 class="mb-2 font-bold text-2xl">{live.title}</h3>
             <p class="mb-4 text-gray-600">{live.publishedAt}</p>
-            <Button className="bg-red-600 hover:bg-red-700">
-              <Tv className="mr-2 h-4 w-4" /> Ver Ahora
-            </Button>
+            <a href={live.url} target="_blank">
+              <Button className="bg-red-600 hover:bg-red-700">
+                <Tv className="mr-2 h-4 w-4" /> Ver Ahora
+              </Button>
+            </a>
           </div>
         </div>
       )

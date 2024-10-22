@@ -1,6 +1,5 @@
 ---
 import Layout from "@/layouts/RootLayout.astro";
-import { datos } from "@/constants";
 import Hero from "@/sections/hero.astro";
 import LatestStreams from "@/sections/latest-streams.astro";
 import LatestVideos from "@/sections/latest-videos.astro";
@@ -9,8 +8,13 @@ import LatestShorts from "@/sections/latest-shorts.astro";
 import UpComing from "@/sections/up-coming.astro";
 import Hosts from "@/sections/hosts.astro";
 import CallToAction from "@/sections/call-to-action.astro";
+import { GET } from "./api/youtube";
 
-const { streams, videos, live, shorts, upcomings } = datos;
+let response = await GET(Astro);
+
+const data = await response.json();
+
+const { streams, videos, live, shorts, upcomings } = data;
 ---
 
 <Layout title="Carajo Stream - Pagina Principal">
