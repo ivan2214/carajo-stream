@@ -1,7 +1,15 @@
 ---
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { GET } from "@/pages/api/youtube";
+import type { CategorizedVideos } from "@/types";
 import { Youtube } from "lucide-react";
+
+let response = await GET(Astro);
+
+const data = await response.json();
+
+const { streams, videos, live, shorts, upcomings }: CategorizedVideos = data;
 ---
 
 <header
@@ -9,41 +17,68 @@ import { Youtube } from "lucide-react";
 >
   <div class="container flex h-14 items-center px-4">
     <div class="mr-4 hidden md:flex">
-      <a class="mr-6 flex items-center space-x-2" href="/">
+      <a class="mr-6 flex items-center space-x-2" href="#">
         <Youtube className="h-6 w-6 text-purple-600" />
         <span class="hidden font-bold sm:inline-block"> CarajoStream </span>
       </a>
       <nav class="flex items-center space-x-6 font-medium text-sm">
-        <a
-          class="text-foreground/60 transition-colors hover:text-foreground/80"
-          href="#videos"
-        >
-          Videos
-        </a>
-        <a
-          class="text-foreground/60 transition-colors hover:text-foreground/80"
-          href="#live"
-        >
-          En Vivo
-        </a>
-        <a
-          class="text-foreground/60 transition-colors hover:text-foreground/80"
-          href="#shorts"
-        >
-          Shorts
-        </a>
-        <a
-          class="text-foreground/60 transition-colors hover:text-foreground/80"
-          href="#upcoming"
-        >
-          Próximos
-        </a>
+        {
+          live && (
+            <a
+              class="text-foreground/60 transition-colors hover:text-foreground/80"
+              href="#live"
+            >
+              En Vivo
+            </a>
+          )
+        }
+
+        {
+          upcomings.length > 0 && (
+            <a
+              class="text-foreground/60 transition-colors hover:text-foreground/80"
+              href="#upcoming"
+            >
+              Próximos
+            </a>
+          )
+        }
+        {
+          streams?.length > 0 && (
+            <a
+              class="text-foreground/60 transition-colors hover:text-foreground/80"
+              href="#streams"
+            >
+              Ultimos Streams
+            </a>
+          )
+        }
         <a
           class="text-foreground/60 transition-colors hover:text-foreground/80"
           href="#hosts"
         >
           Conductores
         </a>
+        {
+          shorts?.length > 0 && (
+            <a
+              class="text-foreground/60 transition-colors hover:text-foreground/80"
+              href="#shorts"
+            >
+              Shorts
+            </a>
+          )
+        }
+        {
+          videos?.length > 0 && (
+            <a
+              class="text-foreground/60 transition-colors hover:text-foreground/80"
+              href="#videos"
+            >
+              Videos
+            </a>
+          )
+        }
       </nav>
     </div>
     <div
