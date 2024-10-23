@@ -11,12 +11,13 @@
 			"node_modules",
 			"dist",
 			"public",
-			".astro",
+			".astro/**",
 			".git",
 			".vscode",
-			".config.{js,ts,json,mjs}",
-			".json",
-			".yml"
+			"*.config.{js,ts,json,mjs}",
+			"*.json",
+			"*.jsonc",
+			"*.yml"
 		]
 	},
 	"formatter": {

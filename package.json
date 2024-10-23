@@ -1,6 +1,9 @@
 {
 	"name": "carajo-stream",
 	"type": "module",
+	"exports": {
+		"./biome": "./biome.json"
+	},
 	"version": "0.0.1",
 	"author": {
 		"name": "Ivan",
