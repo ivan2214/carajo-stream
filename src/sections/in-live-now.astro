@@ -1,13 +1,14 @@
 ---
+import Container from "@/components/container.astro";
 import { Button } from "@/components/ui/button";
 import type { CategorizedVideos } from "@/types";
-import { Tv, Radio } from "lucide-react";
+import { Radio, Tv } from "lucide-react";
 
 const { live } = Astro.props as CategorizedVideos;
 ---
 
 <section id="live" class="w-full bg-gray-100 py-12 md:py-24 lg:py-32">
-  <div class="container px-4 md:px-6">
+  <Container>
     <h2
       class="mb-8 font-bold flex items-center gap-x-5 text-3xl tracking-tighter sm:text-4xl md:text-5xl"
     >
@@ -33,5 +34,5 @@ const { live } = Astro.props as CategorizedVideos;
         </article>
       )
     }
-  </div>
+  </Container>
 </section>

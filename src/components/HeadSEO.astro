@@ -2,15 +2,15 @@
 import "@/styles/globals.css";
 
 interface Props {
-  title?: string | undefined;
-  description?: string | undefined;
-  ogImage?: URL | undefined;
+	title?: string | undefined;
+	description?: string | undefined;
+	ogImage?: URL | undefined;
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 if (Astro.props.ogImage === undefined) {
-  Astro.props.ogImage = new URL("home.webp", canonicalURL);
+	Astro.props.ogImage = new URL("home.webp", canonicalURL);
 }
 
 const { title, description, ogImage = "/home.webp" } = Astro.props;

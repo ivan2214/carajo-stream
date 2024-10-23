@@ -1,10 +1,11 @@
 ---
+import Container from "@/components/container.astro";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 ---
 
 <section class="w-full border-t py-12 md:py-24 lg:py-32">
-  <div class="container px-4 md:px-6">
+  <Container>
     <div
       class="flex flex-col items-center justify-center space-y-4 text-center"
     >
@@ -30,5 +31,5 @@ import { Input } from "@/components/ui/input";
         </form>
       </div>
     </div>
-  </div>
+  </Container>
 </section>
