@@ -1,6 +1,7 @@
 ---
 import Container from "@/components/container.astro";
 import { Button } from "@/components/ui/button";
+import VideoButton from "@/components/VideoButton.astro";
 import type { CategorizedVideos } from "@/types";
 import { Play } from "lucide-react";
 
@@ -29,13 +30,7 @@ const { streams } = Astro.props as CategorizedVideos;
               <h3 class="mb-2 font-bold">{stream.title}</h3>
               <p class="text-gray-600 text-sm">{stream.publishedAt}</p>
             </div>
-            <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-              <a href={stream.url} target="_blank">
-                <Button className="scale-0 transform bg-white text-purple-600 transition-transform duration-300 hover:bg-gray-100 group-hover:scale-100">
-                  <Play className="mr-2 h-4 w-4" /> Reproducir
-                </Button>
-              </a>
-            </div>
+            <VideoButton url={stream.url} className="bottom-0 right-0 p-4" />
           </div>
         ))
       }
