@@ -1,23 +1,27 @@
 ---
+import HeadSEO from "@/components/HeadSEO.astro";
 import Footer from "@/sections/footer.astro";
 import Header from "@/sections/header.astro";
-import "@/styles/globals.css";
 interface Props {
-  title: string;
+  title?: string | undefined;
+  description?: string | undefined;
+  ogImage?: URL | undefined;
 }
 
-const { title } = Astro.props;
+const { title, description, ogImage } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
     <meta name="description" content="Astro description" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <HeadSEO title={title} description={description} ogImage={ogImage} />
   </head>
   <body>
     <Header />

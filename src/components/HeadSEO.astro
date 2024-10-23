@@ -1,0 +1,67 @@
+---
+import "@/styles/globals.css";
+
+interface Props {
+  title?: string | undefined;
+  description?: string | undefined;
+  ogImage?: URL | undefined;
+}
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+if (Astro.props.ogImage === undefined) {
+  Astro.props.ogImage = new URL("home.webp", canonicalURL);
+}
+
+const { title, description, ogImage = "/home.webp" } = Astro.props;
+---
+
+<meta charset="utf-8" />
+<meta name="robots" content="index, follow" />
+<meta name="googlebot" content="index, follow" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="generator" content={Astro.generator} />
+<!-- Cargar todas las fotos del inicio en public primero -->
+
+<link rel="canonical" href={canonicalURL} />
+<link
+  rel="shortcut icon"
+  type="image/svg+xml"
+  href={`${Astro.site}favicon.svg`}
+/>
+
+<!-- primary Meta Tags -->
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content={Astro.url} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={new URL(ogImage, Astro.url)} />
+<meta property="og:site_name" content="CarajoStream" />
+<meta property="og:locale" content="es_AR" />
+
+<!-- Twitter -->
+
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={Astro.url} />
+<meta property="twitter:title" content={title} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:site" content={canonicalURL} />
+<meta property="twitter:image" content={new URL(ogImage, Astro.url)} />
+
+<!-- Meta Tags SEO -->
+<meta
+  name="keywords"
+  content="Javier Milei, Javier Milei Argentina, Javier Milei Argentina 2024, Gordo Dan, Liberalismo, Streaming, Youtube, Twitch, Risas, Anarcocapitalismo, CarajoStream, X, Twitter, Random, Stream de Liberals"
+/>
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="apple-touch-icon" href="/img/icons/apple-touch-icon.png" />
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+<link rel="sitemap" href="/sitemap-index.xml" />
