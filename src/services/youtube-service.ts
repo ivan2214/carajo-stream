@@ -21,7 +21,7 @@ const limit = pLimit(2);
 // Función para obtener detalles de los videos
 async function getVideoDetails(videoIds: string[]): Promise<Item[]> {
 	try {
-		const ids = videoIds.join(",");
+		const ids = videoIds?.join(",");
 		const YOUTUBE_VIDEO_DETAILS_URL = `https://www.googleapis.com/youtube/v3/videos?key=${API_KEY}&id=${ids}&part=snippet,contentDetails`;
 		const response = await limit(()=>fetch(YOUTUBE_VIDEO_DETAILS_URL, {
 			cache: "force-cache",
