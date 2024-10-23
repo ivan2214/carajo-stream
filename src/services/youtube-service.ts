@@ -62,7 +62,10 @@ export async function getAllVideos({
 			live: null,
 		};
 
-		if (items.length === 0) return categorizedVideos;
+		if (items?.length === 0) {
+			console.log("No se encontraron videos.", {data});
+			return categorizedVideos
+		};
 
 		const videoIds = items.map((item) => item.id.videoId);
 		const videoDetails = await getVideoDetails(videoIds);
@@ -100,6 +103,11 @@ export async function getAllVideos({
 				console.error("Error al validar el video:", validationResult.error);
 			}
 		}
+
+		console.log({
+			categorizedVideos
+		});
+		
 
 		return categorizedVideos;
 	} catch (error) {
