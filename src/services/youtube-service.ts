@@ -17,15 +17,17 @@ const API_KEY = import.meta.env.YOUTUBE_API_KEY;
 const CHANNEL_ID = import.meta.env.YOUTUBE_CHANNEL_ID;
 
 const limit = pLimit(2);
- 
+
 // Función para obtener detalles de los videos
 async function getVideoDetails(videoIds: string[]): Promise<Item[]> {
 	try {
 		const ids = videoIds?.join(",");
 		const YOUTUBE_VIDEO_DETAILS_URL = `https://www.googleapis.com/youtube/v3/videos?key=${API_KEY}&id=${ids}&part=snippet,contentDetails`;
-		const response = await limit(()=>fetch(YOUTUBE_VIDEO_DETAILS_URL, {
-			cache: "force-cache",
-		}))
+		const response = await limit(() =>
+			fetch(YOUTUBE_VIDEO_DETAILS_URL, {
+				cache: "force-cache",
+			}),
+		);
 
 		const data = await response.json();
 
@@ -47,9 +49,11 @@ export async function getAllVideos({
 	try {
 		// Modificar la URL para incluir maxResults
 		const YOUTUBE_API_URL = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet&order=date&maxResults=${maxResults}`;
-		const response = await limit(()=>fetch(YOUTUBE_API_URL, {
-			cache:"force-cache"
-		}))
+		const response = await limit(() =>
+			fetch(YOUTUBE_API_URL, {
+				cache: "force-cache",
+			}),
+		);
 
 		const data: ResponseYoutube = await response.json();
 		const { items } = data;
@@ -63,9 +67,8 @@ export async function getAllVideos({
 		};
 
 		if (items?.length === 0) {
-			
-			return categorizedVideos
-		};
+			return categorizedVideos;
+		}
 
 		const videoIds = items?.map((item) => item.id.videoId);
 		const videoDetails = await getVideoDetails(videoIds);
@@ -76,9 +79,8 @@ export async function getAllVideos({
 				snippet;
 			const durationInSeconds = getDurationInSeconds(contentDetails.duration);
 			const videoType = classifyVideoByDuration(durationInSeconds);
-			
-			const {liveBroadcastContent} = detail.snippet
-			
+
+			const { liveBroadcastContent } = detail.snippet;
 
 			const videoData: VideoItem = {
 				videoId,
@@ -97,7 +99,8 @@ export async function getAllVideos({
 				if (videoType === "short") categorizedVideos.shorts.push(videoData);
 				else if (videoType === "video")
 					categorizedVideos.videos.push(videoData);
-				else if (videoType === "live" ||liveBroadcastContent === "live" ) categorizedVideos.live = videoData;
+				else if (videoType === "live" || liveBroadcastContent === "live")
+					categorizedVideos.live = videoData;
 				else if (videoType === "streams")
 					categorizedVideos.streams.push(videoData);
 				else if (videoType === "upcoming")

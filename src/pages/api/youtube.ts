@@ -1,8 +1,8 @@
-import type { APIRoute } from 'astro'
-import { getAllVideos } from '@/services/youtube-service';
+import { getAllVideos } from "@/services/youtube-service";
+import type { APIRoute } from "astro";
 
 export const GET: APIRoute = async () => {
-    try {
+	try {
 		const categorizedVideos = await getAllVideos({
 			maxResults: 25,
 		});
@@ -14,4 +14,4 @@ export const GET: APIRoute = async () => {
 			{ status: 500 },
 		);
 	}
-}
+};
