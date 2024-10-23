@@ -1,7 +1,7 @@
 ---
 import { Button } from "@/components/ui/button";
 import type { CategorizedVideos } from "@/types";
-import { Tv } from "lucide-react";
+import { Tv, Radio } from "lucide-react";
 
 const { live } = Astro.props as CategorizedVideos;
 ---
@@ -9,18 +9,16 @@ const { live } = Astro.props as CategorizedVideos;
 <section id="live" class="w-full bg-gray-100 py-12 md:py-24 lg:py-32">
   <div class="container px-4 md:px-6">
     <h2
-      class="mb-8 font-bold text-3xl tracking-tighter sm:text-4xl md:text-5xl"
+      class="mb-8 font-bold flex items-center gap-x-5 text-3xl tracking-tighter sm:text-4xl md:text-5xl"
     >
-      En Vivo Ahora
+      En Vivo Ahora <Radio className="h-8 w-8 text-red-600" />
     </h2>
     {
       live && (
-        <div class="overflow-hidden rounded-lg shadow-xl">
+        <article class="overflow-hidden max-w-screen-md ml-auto hover:translate-y-[-0.5rem] hover:shadow-2xl duration-300 transition rounded-lg shadow-xl">
           <img
-            src={live.thumbnails.standard.url}
+            src={live.thumbnails.high.url}
             alt="Live stream thumbnail"
-            width={800}
-            height={400}
             class="w-full object-cover"
           />
           <div class="bg-white p-6">
@@ -32,7 +30,7 @@ const { live } = Astro.props as CategorizedVideos;
               </Button>
             </a>
           </div>
-        </div>
+        </article>
       )
     }
   </div>
