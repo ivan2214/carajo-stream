@@ -24,11 +24,11 @@ const { streams, videos, live, shorts, upcomings } = data;
   <main>
     <Hero />
     {live && <InLiveNow live={live} />}
-    <UpComing upcomings={upcomings} />
-    <LatestStreams streams={streams} />
+    {upcomings.length > 0 && <UpComing upcomings={upcomings} />}
+    {streams.length > 0 && <LatestStreams streams={streams} />}
     <Hosts />
-    <LatestShorts shorts={shorts} />
-    <LatestVideos videos={videos} />
+    {shorts.length > 0 && <LatestShorts shorts={shorts} />}
+    {videos.length > 0 && <LatestVideos videos={videos} />}
     <CallToAction />
   </main>
 </Layout>

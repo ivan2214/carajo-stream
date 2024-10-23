@@ -3,12 +3,13 @@ import { Radio } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import type { CategorizedVideos } from "@/types";
+import Container from "@/components/container.astro";
 
 const { upcomings } = Astro.props as CategorizedVideos;
 ---
 
 <section id="upcoming" class="w-full bg-gray-100 py-12 md:py-24 lg:py-32">
-  <div class="container px-4 md:px-6">
+  <Container>
     <h2
       class="mb-8 font-bold text-3xl tracking-tighter sm:text-4xl md:text-5xl"
     >
@@ -30,5 +31,5 @@ const { upcomings } = Astro.props as CategorizedVideos;
         ))
       }
     </div>
-  </div>
+  </Container>
 </section>
