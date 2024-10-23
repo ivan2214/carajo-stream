@@ -5,6 +5,7 @@ import type {
 	ResponseYoutube,
 	VideoItem,
 } from "@/types";
+import { timeAgo } from "@/utils/date-util";
 import {
 	classifyVideoByDuration,
 	getDurationInSeconds,
@@ -91,7 +92,7 @@ export async function getAllVideos({
 
 			const videoData: VideoItem = {
 				videoId,
-				publishedAt,
+				publishedAt: timeAgo(publishedAt),
 				title,
 				videoType,
 				description,
