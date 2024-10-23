@@ -63,7 +63,7 @@ export async function getAllVideos({
 		};
 
 		if (items?.length === 0) {
-			console.log("No se encontraron videos.", {data});
+			
 			return categorizedVideos
 		};
 
@@ -76,6 +76,9 @@ export async function getAllVideos({
 				snippet;
 			const durationInSeconds = getDurationInSeconds(contentDetails.duration);
 			const videoType = classifyVideoByDuration(durationInSeconds);
+			
+			const {liveBroadcastContent} = detail.snippet
+			
 
 			const videoData: VideoItem = {
 				videoId,
@@ -94,7 +97,7 @@ export async function getAllVideos({
 				if (videoType === "short") categorizedVideos.shorts.push(videoData);
 				else if (videoType === "video")
 					categorizedVideos.videos.push(videoData);
-				else if (videoType === "live") categorizedVideos.live = videoData;
+				else if (videoType === "live" ||liveBroadcastContent === "live" ) categorizedVideos.live = videoData;
 				else if (videoType === "streams")
 					categorizedVideos.streams.push(videoData);
 				else if (videoType === "upcoming")
@@ -103,12 +106,6 @@ export async function getAllVideos({
 				console.error("Error al validar el video:", validationResult.error);
 			}
 		}
-
-		console.log({
-			categorizedVideos
-		});
-		
-
 		return categorizedVideos;
 	} catch (error) {
 		console.error("Error al obtener los videos:", error);

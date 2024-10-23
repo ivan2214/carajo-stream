@@ -20,12 +20,12 @@ const { streams, videos, live, shorts, upcomings } = data;
 <Layout title="Carajo Stream - Pagina Principal">
   <main>
     <Hero />
-    <LatestStreams streams={streams} />
-    <LatestVideos videos={videos} />
     {live && <InLiveNow live={live} />}
-    <LatestShorts shorts={shorts} />
     <UpComing upcomings={upcomings} />
+    <LatestStreams streams={streams} />
     <Hosts />
+    <LatestShorts shorts={shorts} />
+    <LatestVideos videos={videos} />
     <CallToAction />
   </main>
 </Layout>
