@@ -1,7 +1,11 @@
 import { createClient } from "redis";
 
 const redisClient = createClient({
-	url: "redis://localhost:6379", // URL de tu servidor Redis
+	password: import.meta.env.REDIS_PASSWORD,
+	socket: {
+		host: import.meta.env.REDIS_HOST,
+		port: import.meta.env.REDIS_PORT,
+	},
 });
 
 redisClient.on("error", (err) => console.error("Redis Client Error", err));
