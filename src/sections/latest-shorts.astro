@@ -15,7 +15,7 @@ const { shorts } = Astro.props as CategorizedVideos;
     </h2>
     <div class="flex space-x-4 overflow-x-auto pb-4">
       {
-        shorts.map((short) => (
+        shorts?.map((short) => (
           <div class="group relative w-48 flex-none">
             <div class="overflow-hidden rounded-lg shadow-md">
               <img

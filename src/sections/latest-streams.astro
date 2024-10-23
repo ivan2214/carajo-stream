@@ -15,7 +15,7 @@ const { streams } = Astro.props as CategorizedVideos;
     </h2>
     <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
       {
-        streams.map((stream) => (
+        streams?.map((stream) => (
           <div class="group relative overflow-hidden rounded-lg shadow-lg">
             <img
               src={stream.thumbnails.standard.url}

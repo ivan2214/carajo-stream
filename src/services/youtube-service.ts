@@ -67,7 +67,7 @@ export async function getAllVideos({
 			return categorizedVideos
 		};
 
-		const videoIds = items.map((item) => item.id.videoId);
+		const videoIds = items?.map((item) => item.id.videoId);
 		const videoDetails = await getVideoDetails(videoIds);
 
 		for (const detail of videoDetails) {

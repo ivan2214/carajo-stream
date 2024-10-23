@@ -15,7 +15,7 @@ const { videos } = Astro.props as CategorizedVideos;
     </h2>
     <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
       {
-        videos.map((video) => (
+        videos?.map((video) => (
           <div class="group relative overflow-hidden rounded-lg shadow-lg">
             <img
               src={video.thumbnails.standard.url}

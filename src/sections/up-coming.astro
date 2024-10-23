@@ -16,7 +16,7 @@ const { upcomings } = Astro.props as CategorizedVideos;
     </h2>
     <div class="space-y-4">
       {
-        upcomings.map((upcoming) => (
+        upcomings?.map((upcoming) => (
           <div class="flex items-center space-x-4 rounded-lg bg-white p-4 shadow">
             <div class="flex-none">
               <Radio className="h-8 w-8 text-purple-600" />
