@@ -15,7 +15,7 @@ import redisClient from "@/utils/redisClient";
 import { VideoSchema } from "@/validation/video-schema";
 
 const CACHE_KEY = "youtubeVideosCache";
-const CACHE_DURATION = 24 * 60 * 60; // 24 horas en segundos
+const CACHE_DURATION = 6 * 60 * 60; // 6 horas
 
 const API_KEY = import.meta.env.YOUTUBE_API_KEY;
 const CHANNEL_ID = import.meta.env.YOUTUBE_CHANNEL_ID;
