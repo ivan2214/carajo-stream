@@ -2,37 +2,104 @@
 import Container from "@/components/container.astro";
 import { Button } from "@/components/ui/button";
 import type { CategorizedVideos } from "@/types";
-import { Radio, Tv } from "lucide-react";
+import { Radio, Tv, X } from "lucide-react";
 
 const { live } = Astro.props as CategorizedVideos;
 ---
 
-<section id="live" class="w-full bg-gray-100 py-12 md:py-24 lg:py-32">
-  <Container>
-    <h2
-      class="mb-8 font-bold flex items-center gap-x-5 text-3xl tracking-tighter sm:text-4xl md:text-5xl animate-pulse"
+<article
+  class="fixed bottom-4 right-4 max-w-[200px] max-h-[400px] md:bottom-4 md:right-4 block bg-white rounded-lg shadow-lg overflow-hidden md:max-w-[300px] w-full z-50 animate-fade-in"
+  aria-live="polite"
+  id="live"
+>
+  <header class="relative">
+    <figure>
+      <img
+        src={live?.thumbnails.standard.url}
+        alt="Portada del directo"
+        class="w-full h-auto object-cover"
+      />
+      <figcaption class="sr-only">
+        Imagen de portada del stream en vivo
+      </figcaption>
+    </figure>
+    <span
+      class="absolute top-2 left-2 bg-red-600 text-white px-2 py-1 rounded-full text-xs font-bold animate-pulse"
     >
-      En Vivo Ahora <Radio className="h-8 w-8 text-red-600" />
-    </h2>
-    {
-      live && (
-        <article class="overflow-hidden max-w-screen-md ml-auto hover:shadow-2xl duration-300 transition rounded-lg shadow-xl">
-          <img
-            src={live.thumbnails.high.url}
-            alt="Live stream thumbnail"
-            class="w-full object-cover"
-          />
-          <div class="bg-white p-6">
-            <h3 class="mb-2 font-bold text-2xl">{live.title}</h3>
-            <p class="mb-4 text-gray-600">{live.publishedAt}</p>
-            <a href={live.url} target="_blank">
-              <Button className="bg-red-600 hover:bg-red-700">
-                <Tv className="mr-2 h-4 w-4" /> Ver Ahora
-              </Button>
-            </a>
-          </div>
-        </article>
-      )
+      EN VIVO
+    </span>
+    <button
+      id="close-live-now"
+      type="button"
+      class="absolute top-2 right-2 text-white hover:text-gray-200 transition-colors"
+      aria-label="Cerrar"
+    >
+      <X size={20} />
+    </button>
+  </header>
+  <section class="p-2 md:p-4 flex flex-col gap-y-2 items-start">
+    <h3 class="font-bold text-lg">¡Estamos en directo!</h3>
+    <p class="text-sm text-gray-600 mb-4">
+      No te pierdas nuestro emocionante stream en vivo.
+    </p>
+  </section>
+  <footer class="text-center py-2">
+    <a href={live?.url} target="_blank" rel="noopener noreferrer">
+      <Button>Entrar al directo </Button>
+    </a>
+  </footer>
+</article>
+
+<script>
+  function handleCloseLive() {
+    const live = document.getElementById("live");
+    if (live) {
+      live.classList.remove("animate-fade-in");
+      live.classList.add("animate-fade-out");
+      setTimeout(() => {
+        live.classList.add("hidden"); // Oculta el elemento
+        setTimeout(() => {
+          live.classList.remove("animate-fade-out", "hidden");
+          live.classList.add("animate-fade-in");
+        }, 20000); // Reaparece después de 20 segundos
+      }, 500); // Duración de la animación fade-out
     }
-  </Container>
-</section>
+  }
+
+  const closeLive = document.getElementById("close-live-now");
+  if (closeLive) {
+    closeLive.addEventListener("click", handleCloseLive);
+  }
+</script>
+
+<style scoped>
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+
+  .animate-fade-out {
+    animation: fadeOut 0.5s ease-out forwards;
+  }
+</style>

@@ -16,6 +16,8 @@ export interface VideoItem {
 	channelTitle: string;
 	thumbnails: Thumbnails;
 	videoType: "short" | "video" | "live" | "upcoming" | "streams";
+	scheduledStartTime?: string;
+	timeToStart?: string;
 }
 
 // esto deevuelve la api de youtube para todos

@@ -100,7 +100,31 @@ export async function getAllVideos({
 				url: `https://www.youtube.com/watch?v=${videoId}`,
 				channelTitle,
 				thumbnails,
+				scheduledStartTime: snippet.publishedAt,
 			};
+
+			if (liveBroadcastContent === "upcoming") {
+				const nowUTC = new Date(); // Hora actual en UTC
+				const publishedAt = new Date(snippet.publishedAt); // Convertir publishedAt a un objeto Date
+				console.log("PublishedAt:", publishedAt.toISOString());
+				console.log("nowUTC:", nowUTC.toISOString());
+
+				// Calcula la diferencia en milisegundos
+				const timeRemaining = publishedAt.getTime() - nowUTC.getTime(); // Ahora funciona correctamente
+
+				if (timeRemaining > 0) {
+					// Verifica si el evento aún no ha comenzado
+					const totalMinutes = Math.floor(timeRemaining / (1000 * 60)); // Total de minutos
+					const hours = Math.floor(totalMinutes / 60); // Horas restantes
+					const minutes = totalMinutes % 60; // Minutos restantes
+
+					videoData.timeToStart = `${hours} horas y ${minutes} minutos`;
+					console.log("Tiempo restante:", videoData.timeToStart);
+				} else {
+					console.log("El evento ya ha comenzado o la fecha es incorrecta.");
+				}
+			}
+
 			const validationResult = VideoSchema.safeParse(videoData);
 
 			if (validationResult.success) {

@@ -24,9 +24,17 @@ const { upcomings } = Astro.props as CategorizedVideos;
             </div>
             <div class="flex-grow">
               <h3 class="font-bold">{upcoming.title}</h3>
-              <p class="text-gray-600 text-sm">{upcoming.publishedAt}</p>
+              <p class="text-gray-600 text-sm">{upcoming.timeToStart}</p>
             </div>
-            <Button variant="outline">Recordatorio</Button>
+            <Button
+              variant="outline"
+              size="sm"
+              className="bg-primary text-white"
+            >
+              <a target="_blank" href={upcoming.url}>
+                Ver
+              </a>
+            </Button>
           </div>
         ))
       }

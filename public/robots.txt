@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Host
+Host: https://carajo-stream.vercel.app
+
+# Sitemaps
+Sitemap: https://carajo-stream.vercel.app/sitemap-index.xml

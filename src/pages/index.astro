@@ -9,6 +9,7 @@ import LatestStreams from "@/sections/latest-streams.astro";
 import LatestVideos from "@/sections/latest-videos.astro";
 import UpComing from "@/sections/up-coming.astro";
 import { GET } from "./api/youtube";
+import Schedule from "@/sections/schedule.astro";
 
 let response = await GET(Astro);
 
@@ -25,6 +26,7 @@ const { streams, videos, live, shorts, upcomings } = data;
     <Hero />
     {live && <InLiveNow live={live} />}
     {upcomings.length > 0 && <UpComing upcomings={upcomings} />}
+    <Schedule />
     {streams.length > 0 && <LatestStreams streams={streams} />}
     <Hosts />
     {shorts.length > 0 && <LatestShorts shorts={shorts} />}
