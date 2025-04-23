@@ -16,23 +16,18 @@ const { streams, videos, live, shorts, upcomings }: CategorizedVideos = data;
   class="sticky top-0 z-50 w-full border-b bg-background backdrop-blur supports-[backdrop-filter]:bg-background"
 >
   <div class="container flex h-14 items-center px-4">
-    <div class="mr-4 hidden md:flex">
-      <a class="mr-6 flex items-center space-x-2" href="#">
-        <Youtube className="h-6 w-6 text-primary" />
-        <span class="hidden font-bold sm:inline-block"> CarajoStream </span>
+    <div class="flex items-center justify-start gap-x-4">
+      <a class="flex items-center justify-center" href="#">
+        <img
+          src="/public/images/logo.webp"
+          loading="lazy"
+          alt="Logo con la palabra carajo representando el nombre del canal de streaming"
+          width="80"
+          height="80"
+          class="rounded-full"
+        />
       </a>
-      <nav class="flex items-center space-x-6 font-medium text-sm">
-        {
-          live && (
-            <a
-              class="text-foreground/60 transition-colors hover:text-foreground/80"
-              href="#live"
-            >
-              En Vivo
-            </a>
-          )
-        }
-
+      <nav class="hidden md:flex items-center space-x-6 font-medium text-sm">
         {
           upcomings.length > 0 && (
             <a
@@ -43,6 +38,12 @@ const { streams, videos, live, shorts, upcomings }: CategorizedVideos = data;
             </a>
           )
         }
+        <a
+          href="#programs"
+          class="text-foreground/60 transition-colors hover:text-foreground/80"
+        >
+          Programacion
+        </a>
         {
           streams?.length > 0 && (
             <a
@@ -81,7 +82,7 @@ const { streams, videos, live, shorts, upcomings }: CategorizedVideos = data;
         }
       </nav>
     </div>
-    <div
+    <!-- <div
       class="flex flex-1 items-center justify-between space-x-2 md:justify-end"
     >
       <div class="w-full flex-1 md:w-auto md:flex-none">
@@ -100,6 +101,6 @@ const { streams, videos, live, shorts, upcomings }: CategorizedVideos = data;
           Suscribirse
         </Button>
       </a>
-    </div>
+    </div> -->
   </div>
 </header>

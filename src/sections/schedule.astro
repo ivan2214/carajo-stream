@@ -1,44 +1,45 @@
 ---
+import { PROGRAMS } from "@/constants";
 import { Calendar } from "lucide-react";
 ---
 
-<section id="schedule" class="w-full py-12 md:py-24 lg:py-32 bg-gray-100">
+<section id="programs" class="w-full py-12 md:py-24 lg:py-32 bg-gray-100">
   <div class="container px-4 md:px-6">
     <h2
       class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-8"
     >
-      Horarios de Programación
+      Horarios de nuestra Programación
     </h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {
-        [
-          {
-            day: "Lunes a Viernes",
-            startTime: "19:00",
-            endTime: "21:00",
-            show: "Toda",
-            conductor: "Ale Cannigia",
-          },
-          {
-            day: "Lunes a Viernes",
-            startTime: "21:00",
-            endTime: "23:00",
-            show: "La misa de dan",
-            conductor: "El gordo dan",
-          },
-        ].map((schedule, index) => (
-          <div class="bg-white p-4 rounded-lg shadow-md">
-            <div class="flex items-center mb-2">
-              <Calendar className="h-5 w-5 text-purple-600 mr-2" />
-              <span class="font-bold">{schedule.day}</span>
+        PROGRAMS.map((schedule) => {
+          const conductor = schedule.streamers.find(
+            (streamer) => streamer.isConductor
+          );
+
+          return (
+            <div class="bg-white overflow-hidden rounded-lg shadow-md">
+              <section>
+                <img
+                  class="w-full h-[500px] aspect-square mx-auto object-cover object-center"
+                  src={schedule.image}
+                  alt={schedule.title}
+                />
+              </section>
+              <section class="p-4">
+                <div class="flex items-center mb-2">
+                  <Calendar className="h-5 w-5 text-purple-600 mr-2" />
+                  <span class="font-bold">{schedule.date}</span>
+                </div>
+                <p class="text-gray-600">
+                  {schedule.startTime} - {schedule.endTime} -{" "}
+                  <span class="font-bold text-primary">{schedule.title}</span>
+                </p>
+                <p class="text-gray-600">Conductor: {conductor?.name}</p>
+              </section>
             </div>
-            <p class="text-gray-600">
-              {schedule.startTime} - {schedule.endTime} -{" "}
-              <span class="font-bold text-primary">{schedule.show}</span>
-            </p>
-            <p class="text-gray-600">Conductor: {schedule.conductor}</p>
-          </div>
-        ))
+          );
+        })
       }
     </div>
   </div>
