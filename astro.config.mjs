@@ -7,24 +7,24 @@ import tailwind from "@astrojs/tailwind";
 
 import sitemap from "@astrojs/sitemap";
 
-import vercel from "@astrojs/vercel/serverless";
+import vercel from "@astrojs/vercel";
 
 // https://astro.build/config
 export default defineConfig({
-	site: "https://carajo-stream.vercel.app",
+  site: "https://carajo-stream.vercel.app",
 
-	integrations: [
-		react(),
-		tailwind({
-			applyBaseStyles: false,
-		}),
-		sitemap(),
-	],
+  integrations: [
+    react(),
+    tailwind({
+      applyBaseStyles: false,
+    }),
+    sitemap(),
+  ],
 
-	output: "server",
-	adapter: vercel({
-		webAnalytics: {
-			enabled: true,
-		},
-	}),
+  output: "server",
+  adapter: vercel({
+    webAnalytics: {
+      enabled: true,
+    },
+  }),
 });
