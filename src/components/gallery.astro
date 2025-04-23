@@ -1,0 +1,12 @@
+---
+import Carousel from "@/components/carrousel";
+import { PROGRAMS } from "../constants";
+
+// Extract only the image URLs
+const images = PROGRAMS.map((item) => item.image);
+
+console.log("images", images);
+---
+
+<!-- Render the Carousel; client:load ensures it hydrates in the browser -->
+<Carousel client:load images={images} />
