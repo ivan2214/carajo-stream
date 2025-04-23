@@ -49,11 +49,18 @@ export async function getAllVideos({
   maxResults?: number;
 }): Promise<CategorizedVideos> {
   try {
-    // Verificar si ya hay datos en el caché de archivos
-    const cachedData = await fileCache.get(CACHE_KEY);
+    // Verificar si el sistema de caché está disponible
+    if (fileCache.isCacheAvailable()) {
+      // Verificar si ya hay datos en el caché de archivos
+      const cachedData = await fileCache.get(CACHE_KEY);
 
-    if (cachedData) {
-      return JSON.parse(cachedData);
+      if (cachedData) {
+        return JSON.parse(cachedData);
+      }
+    } else {
+      console.log(
+        "Sistema de caché no disponible, obteniendo datos directamente de la API"
+      );
     }
 
     // Si no hay cache, hacer la solicitud a la API
@@ -136,12 +143,21 @@ export async function getAllVideos({
       }
     }
 
-    // Guardar los datos en el caché con un TTL de 6 horas
-    await fileCache.setEx(
-      CACHE_KEY,
-      CACHE_DURATION,
-      JSON.stringify(categorizedVideos)
-    );
+    // Intentar guardar los datos en el caché si está disponible
+    if (fileCache.isCacheAvailable()) {
+      try {
+        await fileCache.setEx(
+          CACHE_KEY,
+          CACHE_DURATION,
+          JSON.stringify(categorizedVideos)
+        );
+      } catch (cacheError) {
+        console.error(
+          "Error al guardar en caché, continuando sin caché:",
+          cacheError
+        );
+      }
+    }
 
     return categorizedVideos;
   } catch (error) {

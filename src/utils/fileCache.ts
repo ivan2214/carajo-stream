@@ -1,16 +1,37 @@
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 
-// Obtener la ruta del directorio actual
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+// Determinar la ruta base para el directorio de caché
+let BASE_DIR = "";
+try {
+  // En entorno de producción (Vercel/Netlify/etc)
+  if (process.env.LAMBDA_TASK_ROOT || process.env.VERCEL) {
+    // Usar un directorio temporal que sea escribible
+    BASE_DIR = process.env.TEMP || process.env.TMP || "/tmp";
+  } else {
+    // En desarrollo local, usar el directorio del proyecto
+    BASE_DIR = process.cwd();
+  }
+} catch (error) {
+  // Si hay algún error, usar /tmp como fallback
+  console.error("Error al determinar directorio base:", error);
+  BASE_DIR = "/tmp";
+}
 
 // Directorio donde se almacenarán los archivos de caché
-const CACHE_DIR = path.join(__dirname, "..", "..", "cache");
+const CACHE_DIR = path.join(BASE_DIR, "cache");
 
-// Asegurarse de que el directorio de caché exista
-if (!fs.existsSync(CACHE_DIR)) {
-  fs.mkdirSync(CACHE_DIR, { recursive: true });
+// Función para asegurar que el directorio existe
+function ensureCacheDir() {
+  try {
+    if (!fs.existsSync(CACHE_DIR)) {
+      fs.mkdirSync(CACHE_DIR, { recursive: true });
+    }
+    return true;
+  } catch (error) {
+    console.error(`Error al crear directorio de caché: ${CACHE_DIR}`, error);
+    return false;
+  }
 }
 
 interface CacheData {
@@ -21,12 +42,28 @@ interface CacheData {
 
 class FileCache {
   /**
+   * Verifica si el sistema de caché está disponible
+   * @returns true si el sistema de caché está disponible, false en caso contrario
+   */
+  isCacheAvailable(): boolean {
+    return ensureCacheDir();
+  }
+
+  /**
    * Guarda datos en el caché con un tiempo de expiración
    * @param key Clave para identificar los datos
    * @param data Datos a guardar
    * @param ttl Tiempo de vida en segundos
    */
   async setEx(key: string, ttl: number, data: string): Promise<void> {
+    // Verificar que el directorio de caché exista antes de escribir
+    if (!ensureCacheDir()) {
+      console.error(
+        `No se pudo guardar en caché: ${key} - directorio no disponible`
+      );
+      return;
+    }
+
     const cacheFilePath = path.join(CACHE_DIR, `${key}.json`);
     const cacheData: CacheData = {
       data: JSON.parse(data),
@@ -51,6 +88,14 @@ class FileCache {
    * @returns Datos almacenados o null si no existen o han expirado
    */
   async get(key: string): Promise<string | null> {
+    // Verificar que el directorio de caché exista
+    if (!ensureCacheDir()) {
+      console.log(
+        `No se pudo acceder al caché: ${key} - directorio no disponible`
+      );
+      return null;
+    }
+
     const cacheFilePath = path.join(CACHE_DIR, `${key}.json`);
 
     try {
@@ -66,8 +111,15 @@ class FileCache {
       // Verificar si los datos han expirado
       if (Date.now() > cacheData.expiry) {
         // Eliminar el archivo caducado
-        await fs.promises.unlink(cacheFilePath);
-        console.log(`Caché expirado: ${key}`);
+        try {
+          await fs.promises.unlink(cacheFilePath);
+          console.log(`Caché expirado: ${key}`);
+        } catch (unlinkError) {
+          console.error(
+            `Error al eliminar caché expirado: ${key}`,
+            unlinkError
+          );
+        }
         return null;
       }
 
