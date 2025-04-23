@@ -1,15 +1,12 @@
 ---
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { GET } from "@/pages/api/youtube";
 import type { CategorizedVideos } from "@/types";
-import { Youtube } from "lucide-react";
 
 let response = await GET(Astro);
 
 const data = await response.json();
 
-const { streams, videos, live, shorts, upcomings }: CategorizedVideos = data;
+const { streams, videos, shorts, upcomings }: CategorizedVideos = data;
 ---
 
 <header
