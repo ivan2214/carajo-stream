@@ -8,7 +8,7 @@ const { live } = Astro.props as CategorizedVideos;
 ---
 
 <article
-  class="fixed bottom-4 right-4 max-w-[200px] max-h-[400px] md:bottom-4 md:right-4 block bg-white rounded-lg shadow-lg overflow-hidden md:max-w-[300px] w-full z-50 animate-fade-in"
+  class="fixed bottom-4 right-4 max-w-[200px] max-h-[400px] md:bottom-4 md:right-4 bg-white rounded-lg shadow-lg flex flex-col items-center justify-between overflow-hidden md:max-w-[300px] w-full z-50 animate-fade-in"
   aria-live="polite"
   id="live"
 >
@@ -37,16 +37,18 @@ const { live } = Astro.props as CategorizedVideos;
       <X size={20} />
     </button>
   </header>
-  <section class="p-2 md:p-4 flex flex-col gap-y-2 items-start">
+  <section class="p-2 flex flex-col gap-y-2 items-start">
     <h3 class="font-bold text-lg">¡Estamos en directo!</h3>
     <p class="text-sm text-gray-600 mb-4">
       No te pierdas nuestro emocionante stream en vivo.
     </p>
   </section>
-  <footer class="text-center py-2">
-    <a href={live?.url} target="_blank" rel="noopener noreferrer">
-      <Button>Entrar al directo </Button>
-    </a>
+  <footer class="text-center pb-2">
+    <Button className="hover:bg-blue-500/90">
+      <a href={live?.url} target="_blank" rel="noopener noreferrer">
+        Entrar al directo
+      </a>
+    </Button>
   </footer>
 </article>
 
