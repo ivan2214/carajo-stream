@@ -2,42 +2,53 @@
 import "@/styles/globals.css";
 
 interface Props {
-  title?: string | undefined;
-  description?: string | undefined;
-  ogImage?: URL | undefined;
+  title?: string;
+  description?: string;
+  ogImage?: URL;
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-
-if (Astro.props.ogImage === undefined) {
+if (!Astro.props.ogImage) {
   Astro.props.ogImage = new URL("home.webp", canonicalURL);
 }
 
 const { title, description, ogImage = "/home.webp" } = Astro.props;
 ---
 
+<!-- Meta esenciales -->
 <meta charset="utf-8" />
-<meta name="robots" content="index, follow" />
-<meta name="googlebot" content="index, follow" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta
+  name="robots"
+  content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+/>
+<meta name="googlebot" content="index, follow" />
 <meta name="generator" content={Astro.generator} />
-<!-- Cargar todas las fotos del inicio en public primero -->
 
-<link rel="canonical" href={canonicalURL} />
+<!-- Canonical & Favicon -->
+<link rel="canonical" href={canonicalURL.toString()} />
 <link
   rel="shortcut icon"
-  type="image/svg+xml"
   href={`${Astro.site}favicon.svg`}
+  type="image/svg+xml"
 />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/img/icons/apple-touch-icon.png" />
+<link rel="sitemap" href="/sitemap-index.xml" />
+<meta name="theme-color" content="#000000" />
 
-<!-- primary Meta Tags -->
+<!-- Title & Descripción -->
 <title>{title}</title>
 <meta name="title" content={title} />
 <meta name="description" content={description} />
 
-<!-- 
-Google site verification
- -->
+<!-- Keywords SEO -->
+<meta
+  name="keywords"
+  content="Javier Milei, Milei 2024, Liberalismo Argentina, Gordo Dan, Streaming liberal, Anarcocapitalismo, Política Argentina, Twitch Milei, CarajoStream, actualidad, X, Twitter, risas, entretenimiento"
+/>
+
+<!-- Google Site Verification -->
 <meta
   name="google-site-verification"
   content="8NkhaNOxnwiM0xa44M867a1R-phEJqisP8XMcJYaQfE"
@@ -45,39 +56,27 @@ Google site verification
 
 <!-- Open Graph -->
 <meta property="og:type" content="website" />
-<meta property="og:url" content={Astro.url} />
+<meta property="og:url" content={Astro.url.toString()} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={new URL(ogImage, Astro.url)} />
-<meta property="og:site_name" content="CarajoStream" />
-<meta property="og:locale" content="es_AR" />
+<meta property="og:image" content={new URL(ogImage, Astro.url).toString()} />
 <meta
   property="og:image:alt"
   content="Logo de CarajoStream y portada del stream"
 />
+<meta property="og:site_name" content="CarajoStream" />
+<meta property="og:locale" content="es_AR" />
 
-<!-- Twitter -->
+<!-- Twitter Cards -->
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:url" content={Astro.url} />
+<meta name="twitter:url" content={Astro.url.toString()} />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
-<meta name="twitter:image" content={new URL(ogImage, Astro.url)} />
+<meta name="twitter:image" content={new URL(ogImage, Astro.url).toString()} />
 <meta
   name="twitter:image:alt"
   content="Logo de CarajoStream y portada del stream"
 />
-
 <meta name="twitter:site" content="@CarajoStream" />
 <meta name="twitter:creator" content="@CarajoStream" />
 <meta name="twitter:domain" content={new URL(Astro.url).hostname} />
-
-<!-- Meta Tags SEO -->
-<meta
-  name="keywords"
-  content="Javier Milei, Javier Milei Argentina, Javier Milei Argentina 2024, Gordo Dan, Liberalismo, Streaming, Youtube, Twitch, Risas, Anarcocapitalismo, CarajoStream, X, Twitter, Random, Stream de Liberals, streaming, futbol, actualidad, politica"
-/>
-
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="apple-touch-icon" href="/img/icons/apple-touch-icon.png" />
-
-<link rel="sitemap" href="/sitemap-index.xml" />
