@@ -2,15 +2,15 @@
 import "@/styles/globals.css";
 
 interface Props {
-	title?: string | undefined;
-	description?: string | undefined;
-	ogImage?: URL | undefined;
+  title?: string | undefined;
+  description?: string | undefined;
+  ogImage?: URL | undefined;
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 if (Astro.props.ogImage === undefined) {
-	Astro.props.ogImage = new URL("home.webp", canonicalURL);
+  Astro.props.ogImage = new URL("home.webp", canonicalURL);
 }
 
 const { title, description, ogImage = "/home.webp" } = Astro.props;
@@ -51,25 +51,33 @@ Google site verification
 <meta property="og:image" content={new URL(ogImage, Astro.url)} />
 <meta property="og:site_name" content="CarajoStream" />
 <meta property="og:locale" content="es_AR" />
+<meta
+  property="og:image:alt"
+  content="Logo de CarajoStream y portada del stream"
+/>
 
 <!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content={Astro.url} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={new URL(ogImage, Astro.url)} />
+<meta
+  name="twitter:image:alt"
+  content="Logo de CarajoStream y portada del stream"
+/>
 
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={Astro.url} />
-<meta property="twitter:title" content={title} />
-<meta property="twitter:description" content={description} />
-<meta property="twitter:site" content={canonicalURL} />
-<meta property="twitter:image" content={new URL(ogImage, Astro.url)} />
+<meta name="twitter:site" content="@CarajoStream" />
+<meta name="twitter:creator" content="@CarajoStream" />
+<meta name="twitter:domain" content={new URL(Astro.url).hostname} />
 
 <!-- Meta Tags SEO -->
 <meta
   name="keywords"
-  content="Javier Milei, Javier Milei Argentina, Javier Milei Argentina 2024, Gordo Dan, Liberalismo, Streaming, Youtube, Twitch, Risas, Anarcocapitalismo, CarajoStream, X, Twitter, Random, Stream de Liberals"
+  content="Javier Milei, Javier Milei Argentina, Javier Milei Argentina 2024, Gordo Dan, Liberalismo, Streaming, Youtube, Twitch, Risas, Anarcocapitalismo, CarajoStream, X, Twitter, Random, Stream de Liberals, streaming, futbol, actualidad, politica"
 />
 
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="apple-touch-icon" href="/img/icons/apple-touch-icon.png" />
-
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
 <link rel="sitemap" href="/sitemap-index.xml" />
