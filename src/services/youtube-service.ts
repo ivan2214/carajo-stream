@@ -16,7 +16,7 @@ import { VideoSchema } from "@/validation/video-schema";
 
 const CACHE_KEY = "youtubeVideosCache";
 // 15 minutos de duracion
-const CACHE_DURATION = 15 * 60; // 15 minutos en segundos
+const CACHE_DURATION = 5 * 60; // 15 minutos en segundos
 
 const API_KEY = import.meta.env.YOUTUBE_API_KEY;
 const CHANNEL_ID = import.meta.env.YOUTUBE_CHANNEL_ID;
