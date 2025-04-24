@@ -68,15 +68,18 @@ const { title, description, ogImage = "/home.webp" } = Astro.props;
 <meta property="og:locale" content="es_AR" />
 
 <!-- Twitter Cards -->
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:url" content={Astro.url.toString()} />
-<meta name="twitter:title" content={title} />
-<meta name="twitter:description" content={description} />
-<meta name="twitter:image" content={new URL(ogImage, Astro.url).toString()} />
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={Astro.url.toString()} />
+<meta property="twitter:title" content={title} />
+<meta property="twitter:description" content={description} />
 <meta
-  name="twitter:image:alt"
+  property="twitter:image"
+  content={new URL(ogImage, Astro.url).toString()}
+/>
+<meta
+  property="twitter:image:alt"
   content="Logo de CarajoStream y portada del stream"
 />
-<meta name="twitter:site" content="@CarajoStream" />
-<meta name="twitter:creator" content="@CarajoStream" />
-<meta name="twitter:domain" content={new URL(Astro.url).hostname} />
+<meta property="twitter:site" content="@CarajoStream" />
+<meta property="twitter:creator" content="@CarajoStream" />
+<meta property="twitter:domain" content={new URL(Astro.url).hostname} />
